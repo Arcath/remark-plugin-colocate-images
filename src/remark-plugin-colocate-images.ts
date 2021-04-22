@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import visit from 'unist-util-visit'
+import mkdirp from 'mkdirp'
 
 const {copyFile} = fs.promises
 
@@ -28,7 +29,10 @@ export const colocateImagesPlugin = (pluginOptions: Partial<ColocateImagesPlugin
           const diskPath = path.resolve(diskRoot, node.url)
           const targetDiskPath = path.resolve(diskReplace, node.url)
 
-          promises.push(copyFile(diskPath, targetDiskPath))
+          const promise = mkdirp(path.dirname(targetDiskPath))
+            .then(() => copyFile(diskPath, targetDiskPath))
+
+          promises.push(promise)
 
           node.url = node.url.replace(search, urlReplace)
         }

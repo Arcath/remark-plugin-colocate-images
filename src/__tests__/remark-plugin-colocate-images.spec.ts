@@ -2,6 +2,8 @@ import fs from "fs";
 import path from "path";
 import remark from "remark";
 import html from "remark-html";
+import rimraf from 'rimraf'
+import mkdirp from 'mkdirp'
 
 import { colocateImagesPlugin } from "../remark-plugin-colocate-images";
 
@@ -11,15 +13,15 @@ describe("Co Locate Images", () => {
   const BASE_DIR = path.join(process.cwd(), "src", "__tests__");
 
   const clear = async () => {
-    const files = await readdir(path.join(BASE_DIR, "results"));
-
-    await Promise.all(
-      files.map((file) => {
-        if (file !== ".gitkeep") {
-          return unlink(path.join(BASE_DIR, "results", file));
-        }
+    if(fs.existsSync(path.join(BASE_DIR, "results"))){
+      await new Promise<void>((resolve) => {
+        rimraf(path.join(BASE_DIR, "results"), () => {
+          resolve()
+        })
       })
-    );
+    }
+
+    await mkdirp(path.join(BASE_DIR, "results"))
   };
 
   beforeAll(async () => {
@@ -57,4 +59,23 @@ describe("Co Locate Images", () => {
 
     expect(exists).toBeTruthy();
   });
+
+  it('should create directories as needed', async () => {
+    const markdown = `
+![Image](./test.txt)
+    `.trim();
+
+    const plugin = colocateImagesPlugin({
+      diskRoot: path.join(BASE_DIR, "samples"),
+      diskReplace: path.join(BASE_DIR, "results", 'sample-post'),
+    });
+
+    await remark()
+      .use(plugin as any)
+      .process(markdown);
+
+    const exists = fs.existsSync(path.join(BASE_DIR, "results", "sample-post", "test.txt"));
+
+    expect(exists).toBeTruthy();
+  })
 });
