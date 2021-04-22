@@ -46,8 +46,8 @@ jobs:
         uses: codecov/codecov-action@v1
   release:
     if: 
-      ${{ github.repository == 'arcath/utils' &&
-      contains('refs/heads/master,refs/heads/beta,refs/heads/next,refs/heads/alpha',
+      ${{ github.repository == 'arcath/remark-plugin-colocate-images' &&
+      contains('refs/heads/main,refs/heads/beta,refs/heads/next,refs/heads/alpha',
       github.ref) && github.event_name == 'push' }}
     runs-on: ubuntu-latest
     needs: test
@@ -64,15 +64,6 @@ jobs:
           useLockFile: false
         env:
           HUSKY_SKIP_INSTALL: true
-
-      - name: 📚 Build Docs
-        run: npm run document
-      
-      - name: 🚀 Deploy 
-        uses: JamesIves/github-pages-deploy-action@4.1.1
-        with:
-          branch: gh-pages
-          folder: docs
       
       - name: 🏗 Build
         run: npm run build
