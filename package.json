@@ -1,0 +1,32 @@
+{
+  "name": "remark-plugin-colocate-images",
+  "version": "0.0.0-semantically-released",
+  "description": "Copy images to another path during parsing",
+  "main": "lib/remark-plugin-colocate-images.js",
+  "scripts": {
+    "test": "kcd-scripts test",
+    "build": "tsc",
+    "validate": "kcd-scripts validate"
+  },
+  "keywords": [
+    "remark",
+    "plugin",
+    "images"
+  ],
+  "author": "Adam Laycock <adam@arcath.net>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^14.14.41",
+    "kcd-scripts": "^9.0.0",
+    "remark": "^13.0.0",
+    "remark-html": "^13.0.1",
+    "ts-jest": "^26.5.5",
+    "typescript": "^4.2.4"
+  },
+  "dependencies": {
+    "unist-util-visit": "^2.0.3"
+  },
+  "files": [
+    "lib"
+  ]
+}
