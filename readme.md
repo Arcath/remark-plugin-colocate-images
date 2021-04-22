@@ -29,3 +29,14 @@ const result = await remark()
   .process()
 ```
 
+## Options
+
+`colocateImagesPlugin` takes a few arguments:
+
+|Option|Default|Required|Description|
+|:-----|:------|:------:|:----------|
+|diskRoot|-|Yes|Where on the disk is the content stored|
+|diskReplace|`path.join(process.cwd(), 'public', 'img')`|No|Where should images be copied to.|
+|search|`/^\.\//`|No|The Regex pattern to determine if an image should be copied.|
+|urlReplace|`/public/img/`|No|The Url to replace `search` with.|
+
