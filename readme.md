@@ -35,8 +35,29 @@ const result = await remark()
 
 |Option|Default|Required|Description|
 |:-----|:------|:------:|:----------|
-|diskRoot|-|Yes|Where on the disk is the content stored|
+|diskRoot|-|Yes (unless using `handleImage`)|Where on the disk is the content stored|
 |diskReplace|`path.join(process.cwd(), 'public', 'img')`|No|Where should images be copied to.|
 |search|`/^\.\//`|No|The Regex pattern to determine if an image should be copied.|
 |urlReplace|`/public/img/`|No|The Url to replace `search` with.|
+|handleImage|`undefined`|No|See Below|
+
+## handleImage
+
+Al alternative to specifying replacements is `handleImage`. You can supply a function that returns either a `string` or a `Promise` that returns a `string`.
+
+The returned string in either approach needs to be the new image source for the outputted html
+
+Supplying a `handleImage` skips the usual file copy mechanism and instead relies entirely on your implementation.
+
+For example:
+
+```typescript
+colocateImagesPlugin({
+  handleImage: async (src) => {
+    const cdnSrc = await myCDN.upload(src)
+
+    return cdnSrc
+  }
+})
+```
 
