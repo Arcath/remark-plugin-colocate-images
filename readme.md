@@ -43,7 +43,7 @@ const result = await remark()
 
 ## handleImage
 
-Al alternative to specifying replacements is `handleImage`. You can supply a function that returns either a `string` or a `Promise` that returns a `string`.
+An alternative to specifying replacements is `handleImage`. You can supply a function that returns either a `string` or a `Promise` that returns a `string`.
 
 The returned string in either approach needs to be the new image source for the outputted html
 
