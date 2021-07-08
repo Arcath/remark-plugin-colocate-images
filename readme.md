@@ -6,12 +6,12 @@ You want to store images with your content for example `content/posts/post-slug/
 
 ## The Solution
 
-`remark-plugin-colocate-images` fixes this by copying images from your content path to a spcified folder. Allowing you use `./image.jpg` in your markdown which gets replaced with `/img/image.jpg` in the compiled output.
+`remark-plugin-colocate-images` fixes this by copying images from your content path to a specified folder. Allowing you use `./image.jpg` in your markdown which gets replaced with `/img/image.jpg` in the compiled output.
 
 # Usage
 
 ```
-npm-install --save remark-plugin-colocate-images
+npm install --save remark-plugin-colocate-images
 ```
 
 Where ever you compile your markdown add a remark plugin like so:
